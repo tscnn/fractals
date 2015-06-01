@@ -15,7 +15,7 @@ class svg:
         self.__defs += "%s\n" % s
     
     def path(self, points, fill="none", stroke='#009EE0', strokewidth='1', strokelinecap='round', strokelinejoin='bevel', style=''):
-        d = "".join(["%s%s %s " % ("M" if m==0 else "L",x,y) for x,y,m in points])
+        d = " ".join(["%s%s %s" % ("M" if m==0 else "L",x,y) for x,y,m in points])
         self.add(("<path "
                   "fill='%s' "
                   "stroke='%s' "
