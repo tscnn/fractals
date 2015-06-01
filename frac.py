@@ -112,7 +112,8 @@ def plant1(iterations):
     return track(route, 22.5, startdelta=[[0],[-1]])
 
 def tosvg(fractal, iterations, filename, stepsize=5, border=80, color="white", bgcolor="black"):
-    points = fractal(iterations) * stepsize + border/2
+    points = fractal(iterations)
+    points[:,0:2] = points[:,0:2] * stepsize + border/2
     img = svg(points[:,0].max() + border/2, points[:,1].max() + border/2, bgcolor)
     img.path(points, stroke=color)
     img.save(filename)
