@@ -1,15 +1,18 @@
 
-
 class svg:
     def __init__(self, width, height, bg=None):
-        self.__width = width
-        self.__height = height
-        self.__header = ("<?xml version='1.0' encoding='utf-8' ?>\n"
-                         "<svg width='%spx' height='%spx' version='1.2'>\n") % (width, height)
+        self.__header = (
+             '<?xml version="1.0" encoding="UTF-8"?>\n'
+             '<svg xmlns="http://www.w3.org/2000/svg"'
+             ' xmlns:xlink="http://www.w3.org/1999/xlink"'
+             ' xmlns:ev="http://www.w3.org/2001/xml-events"'
+             ' version="1.1"'
+             ' baseProfile="full"'
+             ' width="%s" height="%s">\n') % (width, height)
         self.__defs = "<defs>\n"
         self.__body = ""
         if bg != None:
-            self.add("<rect fill='%s' x='0' y='0' width='%spx' height='%spx' />" % (bg, width, height))
+            self.add('<rect fill="%s" x="0" y="0" width="%s" height="%s" />' % (bg, width, height))
     
     def adddef(self, s):
         self.__defs += "%s\n" % s
