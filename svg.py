@@ -1,4 +1,6 @@
 
+MOVE = 0
+LINE = 1
 
 class svg:
     def __init__(self, width, height, bg=None):
@@ -14,8 +16,8 @@ class svg:
     def adddef(self, s):
         self.__defs += "%s\n" % s
     
-    def path(self, points, fill="none", stroke='#009EE0', strokewidth='1', strokelinecap='round', strokelinejoin='bevel', style=''):
-        d = "".join(["%s%s %s " % ("M" if m==0 else "L",x,y) for x,y,m in points])
+    def path(self, points, kinds, fill="none", stroke='#009EE0', strokewidth='1', strokelinecap='round', strokelinejoin='bevel', style=''):
+        d = " ".join(["%s%s %s" % (kinds[i], points[i][0], points[i][1]) for i in xrange(len(points))])
         self.add(("<path "
                   "fill='%s' "
                   "stroke='%s' "
