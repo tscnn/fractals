@@ -49,12 +49,12 @@ def plant1(iterations):
     route = axiom.replace([lsys.rule('X=>F-[[X]+X]+F[+FX]-X'), lsys.rule('F=>FF')], iterations)
     return route.track(22.5)
 
-def tosvg(path, filename, width=500, border=80, color="white", bgcolor="black"):
+def tosvg(path, filename, width=500, border=80, color="white", bgcolor="black", linewidth=1):
     points, kinds = path
     points = points / points.max() * width + border/2
     kinds = ['M' if k == lsys.MOVE else 'L' for k in kinds]
     img = svg(points[:,0].max() + border/2, points[:,1].max() + border/2, bgcolor)
-    img.path(points, kinds, stroke=color)
+    img.path(points, kinds, stroke=color, strokewidth=linewidth)
     img.save(filename)
 
 def svg_double_dragon(iterations, filename, stepsize=5, border=80, color1="#4479ff", color2="#5cc455", bgcolor=None):
