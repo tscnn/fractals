@@ -20,8 +20,8 @@ class svg:
     def adddef(self, s):
         self.__defs += "%s\n" % s
     
-    def path(self, points, kinds, fill="none", stroke='#009EE0', strokewidth='1', strokelinecap='round', strokelinejoin='bevel', style=''):
-        d = " ".join(["%s%s %s" % (kinds[i], points[i][0], points[i][1]) for i in xrange(len(points))])
+    def path(self, points, kinds, fill="none", stroke='white', strokewidth='1', strokelinecap='round', strokelinejoin='bevel', style=''):
+        d = " ".join(["%s%s %s" % ("M" if kinds[i] == MOVE else "L", points[i][0], points[i][1]) for i in xrange(len(points))])
         self.add(("<path "
                   "fill='%s' "
                   "stroke='%s' "
@@ -34,11 +34,10 @@ class svg:
     def add(self,s):
         self.__body += "%s\n" % s
     
+    def __str__(self):
+        return "%s%s</defs>\n%s</svg>\n" % (self.__header, self.__defs, self.__body)
+    
     def save(self, filename):
         f = open(filename,"w")
-        f.write(self.__header)
-        f.write(self.__defs)
-        f.write("</defs>\n")
-        f.write(self.__body)
-        f.write("</svg>\n")
+        f.write(str(self))
         f.close()

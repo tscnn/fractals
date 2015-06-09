@@ -1,0 +1,202 @@
+<html>
+<head>
+<title>Fractal L-System Generator</title>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #ededed;
+    font-family: "Trebuchet MS",Helvetica,sans-serif;
+    font-size: 12px;
+    color: #ededed;
+}
+a {
+    color: #ededed;
+}
+#header {
+    text-align: center;
+}
+#header h1 {
+    margin: 20px;
+    padding: 0;
+    font-size: 24px;
+    color: #404040;
+}
+#examples {
+    padding: 10px 0 10px 10px;
+    background-color: #404040;
+    width: 810px;
+    margin: 20px auto;
+    border-top: 3px solid #00ACE9;
+    overflow: auto;
+}
+#examples h2 {
+    color: #00ACE9;
+    margin: 0 0 5px 0;
+    padding: 0;
+    font-size: 16px;
+}
+#examples ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+#examples li {
+    margin: 0;
+    padding-right: 5px;
+    list-style: none;
+    float: left;
+    text-align: center;
+    font-size: 10px;
+}
+#definition {
+    padding: 10px;
+    background-color: #404040;
+    width: 800px;
+    margin: 20px auto 0 auto;
+    border-top: 3px solid #D43F3F;
+    overflow: auto;
+}
+#definition h2 {
+    color: #D43F3F;
+    margin: 0 0 5px 0;
+    padding: 0;
+    font-size: 16px;
+}
+#definition #left {
+    float: left;
+    padding: 0 0 10px 10px;
+    width: 385px;
+}
+#definition #right {
+    float: left;
+    padding: 0 10px 10px 20px;
+    text-align: left;
+    width: 375px;
+}
+#definition #angle {
+    width: 100px;
+    float: left;
+    margin-right: 10px;
+}
+#definition #iterations {
+    width: 100px;
+    float: left;
+}
+#definition h3 {
+    margin: 3px 0 0 0;
+    padding: 0;
+    font-size: 12px;
+}
+#definition textarea {
+    width: 100%;
+    font-size: 16px;
+}
+#definition p {
+    margin: 0;
+    padding: 0;
+}
+#go {
+    padding: 10px;
+    background-color: #D43F3F;
+    width: 800px;
+    margin: 0 auto;
+    overflow: auto;
+    text-align: right;
+}
+#go input {
+    font-size: 16px;
+}
+#result {
+    text-align: center;
+    margin: 20px 0 0 0;
+}
+#result h2 {
+    color: #6A9A1F;
+    margin: 0 auto;
+    width: 800px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #404040;
+    border-top: 3px solid #6A9A1F;
+    text-align: left;
+}
+#save {
+    padding: 10px;
+    background-color: #6A9A1F;
+    width: 800px;
+    margin: 0 auto 200px auto;
+    text-align: right;
+}
+#save input {
+    font-size: 16px;
+}
+</style>
+</head>
+<body>
+
+<div id="header">
+<h1>Fractal Lindemayer-System Generator</h1>
+</div>
+
+<div id="examples">
+<h2>Examples</h2>
+<ul>
+{examples_content}
+</ul>
+</div>
+
+<div id="definition">
+    <h2>L-System Definitions</h2>
+    <div id="left">
+        <div id="angle">
+            <h3>Angle</h3> <input type="text" id="param_angle" style="width:100px;" value="{param_angle}">
+        </div>
+        <div id="iterations">
+            <h3>Iterations</h3> <input type="text" id="param_iterations" style="width:100px;" value="{param_iterations}">
+        </div>
+        <div style="clear:both;">
+            <h3>Axiom</h3>
+            <textarea id="param_axiom" style="height:35px;">{param_axiom}</textarea>
+            <h3>Production Rules</h3>
+            <textarea id="param_rules" style="height:130px;">{param_rules}</textarea>
+        </div>
+    </div>
+    <div id="right">
+        <h3>Syntax</h3>
+        dfdslk jsdflkjs ldkfjls kjflskj dflsdkjf lksjforisgj oght ohigfhij go lsgs,mdfbnakj fnsl fjhslgh slgjsgk nj
+    </div>
+</div>
+
+<div id="go">
+    <input type="button" value="Generate" />
+</div>
+
+<div id="result">
+    <h2>Result</h2>
+    <script type="text/javascript">
+        function encode(s) {
+            s = s.replace("+","><");
+            s = s.replace("\n",",");
+            return encodeURI(s);
+        }
+        function generate_click() {
+            angle = encode(document.getElementById("param_angle").value);
+            iterations = encode(document.getElementById("param_iterations").value);
+            axiom = encode(document.getElementById("param_axiom").value);
+            rules = encode(document.getElementById("param_rules").value);
+            dest = "generator.py?angle="+angle+"&iterations="+iterations+"&axiom="+axiom+"&rules="+rules;
+            document.getElementById("image").src = dest;
+        }
+    </script>
+    <img id="image" src="{image_src}" onclick="generate_click();" />
+</div>
+
+<div id="save">
+    <input type="button" value="Save as vector graphic" />
+</div>
+
+<a href="https://github.com/tscnn"><img style="position: absolute; top: 0; right: 0; border: 0; width: 149px; height: 149px;" src="http://aral.github.com/fork-me-on-github-retina-ribbons/right-graphite@2x.png" alt="Fork me on GitHub"></a>
+
+</body>
+</html>

@@ -267,7 +267,7 @@ class subject:
             iterations -= 1
         return self
     
-    def __rotation_matrix(angle):
+    def __rotation_matrix(self, angle):
         alpha = np.radians(angle)
         return np.matrix([[np.cos(alpha), -np.sin(alpha)],
                           [np.sin(alpha),  np.cos(alpha)]])
