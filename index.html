@@ -82,6 +82,11 @@ a {
 #definition #iterations {
     width: 100px;
     float: left;
+    margin-right: 10px;
+}
+#definition #constants {
+    width: 100px;
+    float: left;
 }
 #definition h3 {
     margin: 3px 0 0 0;
@@ -155,6 +160,9 @@ a {
         <div id="iterations">
             <h3>Iterations</h3> <input type="text" id="param_iterations" style="width:100px;" value="{param_iterations}">
         </div>
+        <div id="constants">
+            <h3>Constants</h3> <input type="text" id="param_constants" style="width:100px;" value="{param_constants}">
+        </div>
         <div style="clear:both;">
             <h3>Axiom</h3>
             <textarea id="param_axiom" style="height:35px;">{param_axiom}</textarea>
@@ -175,17 +183,22 @@ a {
 <div id="result">
     <h2>Result</h2>
     <script type="text/javascript">
-        function encode(s) {
-            s = s.replace("+","><");
-            s = s.replace("\n",",");
-            return encodeURI(s);
+        function asc2hex(s) {
+            ret = '';
+            for (i=0; i<s.length; i=i+1) {
+                h = s.charCodeAt(i).toString(16);
+                if (h.length == 1) h = "0" + h;
+                ret = ret + h;
+            }
+            return ret;
         }
         function generate_click() {
-            angle = encode(document.getElementById("param_angle").value);
-            iterations = encode(document.getElementById("param_iterations").value);
-            axiom = encode(document.getElementById("param_axiom").value);
-            rules = encode(document.getElementById("param_rules").value);
-            dest = "generator.py?angle="+angle+"&iterations="+iterations+"&axiom="+axiom+"&rules="+rules;
+            angle = document.getElementById("param_angle").value;
+            iterations = document.getElementById("param_iterations").value;
+            constants = asc2hex(document.getElementById("param_constants").value);
+            axiom = asc2hex(document.getElementById("param_axiom").value);
+            rules = asc2hex(document.getElementById("param_rules").value);
+            dest = "generator.py?angle="+angle+"&iterations="+iterations+"&constants="+constants+"&axiom="+axiom+"&rules="+rules;
             document.getElementById("image").src = dest;
         }
     </script>

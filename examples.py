@@ -25,8 +25,7 @@ def cesaro(iterations, c=1.0, p=0.3):
 def gosper(iterations):
     axiom = lsys.subject('A')
     route = axiom.replace([lsys.rule('A=>A-B--B+A++AA+B-'), lsys.rule('B=>+A-BB--B-A++A+B')], iterations)
-    route = route.replace([lsys.rule('A=>F'), lsys.rule('B=>F')])
-    return route.track(60)
+    return route.track(60, constants=set(["A","B"]))
 
 def hilbert(iterations):
     axiom = lsys.subject('X')

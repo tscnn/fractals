@@ -12,24 +12,20 @@ import urllib
 from svg import svg
 import lsys
 
-def decode(s):
-    s = urllib.unquote(s)
-    s = s.replace("><", "+")
-    return s
-
 arguments = cgi.FieldStorage()
 
-angle = float(decode(arguments['angle'].value))
-iterations = int(decode(arguments['iterations'].value))
-axiom = decode(arguments['axiom'].value)
-rules = decode(arguments['rules'].value).split(",")
-border = 20
+angle = float(arguments['angle'].value)
+iterations = int(arguments['iterations'].value)
+constants = set(list(str(arguments['constants'].value).decode("hex")))
+axiom = str(arguments['axiom'].value).decode("hex")
+rules = str(arguments['rules'].value).decode("hex").split("\n")
+border = 100
 width = 820
 bgcolor = "#404040"
 
 subject = lsys.subject(axiom)
 result = subject.replace([lsys.rule(rule) for rule in rules], iterations)
-points, kinds = result.track(angle)
+points, kinds = result.track(angle, constants)
 points = points / points[:,0].max() * (width - border) + border/2
 height = points[:,1].max() + border/2
 
