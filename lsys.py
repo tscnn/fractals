@@ -272,19 +272,19 @@ class subject:
         return np.matrix([[np.cos(alpha), -np.sin(alpha)],
                           [np.sin(alpha),  np.cos(alpha)]])
     
-    def track(self, angle):
+    def track(self, angle, constants=["F"], start_rotation=0):
         """ track tokens as route and notice the coordinates
             F means: go one step forward
             + means: turn right
             - means: turn left
             [ means: open new childpath
             ] means: close current path move to end of the parent path """
-        ltp = lambda x: 1 if x == ']' or (x.__class__ == variable and x.name() == 'F') else 0
+        ltp = lambda x: 1 if x == ']' or (x.__class__ == variable and x.name() in constants) else 0
         N = sum(map(ltp, self.tokens())) + 1
         R = self.__rotation_matrix(angle)
         Rinv = np.linalg.inv(R)
         location = np.matrix([[0], [0]], dtype=float)
-        delta = np.matrix([[0], [1]], dtype=float)
+        delta = self.__rotation_matrix(start_rotation) * np.matrix([[0], [1]], dtype=float)
         points = np.zeros((N, 2), dtype=float)
         kinds = np.zeros(N, dtype=int)
         stack = []
@@ -301,7 +301,7 @@ class subject:
                 delta = R * delta
             elif turn.name() == '-': #turn left
                 delta = Rinv * delta
-            elif turn.name() == 'F': #move forward
+            elif turn.name() in constants: #move forward
                 stepsize = (turn[0].value() if len(turn) == 1 else 1)
                 location += delta * stepsize
                 points[i] = location.reshape(2)
