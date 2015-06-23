@@ -333,7 +333,7 @@ class pattern:
             c = text[0]
             if c == '[' or c == ']':
                 self.__tokens.append(text.pop(0))
-            elif (c >= 'a' and c <= 'z') or (c >= 'A' and c <= 'Z') or c == '+' or c == '-':
+            elif (c >= 'a' and c <= 'z') or (c >= 'A' and c <= 'Z') or (c >= '0' and c <= '9') or c == '+' or c == '-':
                 self.__tokens.append(variable(text, name))
             else:
                 break

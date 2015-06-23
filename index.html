@@ -111,6 +111,11 @@ a {
 }
 #go input {
     font-size: 16px;
+    vertical-align: middle;
+}
+#go img {
+    display: none;
+    vertical-align: middle;
 }
 #result {
     text-align: center;
@@ -131,10 +136,7 @@ a {
     background-color: #6A9A1F;
     width: 800px;
     margin: 0 auto 200px auto;
-    text-align: right;
-}
-#save input {
-    font-size: 16px;
+    text-align: center;
 }
 </style>
 </head>
@@ -177,39 +179,50 @@ a {
 </div>
 
 <div id="go">
-    <input type="button" value="Generate" />
+    <img id="image_loading" src="loading.gif" />
+    <input type="button" id="button_generate" value="Generate" onclick="generate_click();" />
 </div>
 
 <div id="result">
     <h2>Result</h2>
-    <script type="text/javascript">
-        function asc2hex(s) {
-            ret = '';
-            for (i=0; i<s.length; i=i+1) {
-                h = s.charCodeAt(i).toString(16);
-                if (h.length == 1) h = "0" + h;
-                ret = ret + h;
-            }
-            return ret;
-        }
-        function generate_click() {
-            angle = document.getElementById("param_angle").value;
-            iterations = document.getElementById("param_iterations").value;
-            constants = asc2hex(document.getElementById("param_constants").value);
-            axiom = asc2hex(document.getElementById("param_axiom").value);
-            rules = asc2hex(document.getElementById("param_rules").value);
-            dest = "generator.py?angle="+angle+"&iterations="+iterations+"&constants="+constants+"&axiom="+axiom+"&rules="+rules;
-            document.getElementById("image").src = dest;
-        }
-    </script>
-    <img id="image" src="{image_src}" onclick="generate_click();" />
+    <img id="image_result" src="{image_src}" onload="generation_finished();" />
 </div>
 
 <div id="save">
-    <input type="button" value="Save as vector graphic" />
+    Save this image as vector graphic by right clicking it and choose "Save image as..."
 </div>
 
 <a href="https://github.com/tscnn"><img style="position: absolute; top: 0; right: 0; border: 0; width: 149px; height: 149px;" src="http://aral.github.com/fork-me-on-github-retina-ribbons/right-graphite@2x.png" alt="Fork me on GitHub"></a>
+
+<script type="text/javascript">
+    var button_generate = document.getElementById("button_generate");
+    var image_loading = document.getElementById("image_loading");
+    var image_result = document.getElementById("image_result");
+    function asc2hex(s) {
+        ret = '';
+        for (i=0; i<s.length; i=i+1) {
+            h = s.charCodeAt(i).toString(16);
+            if (h.length == 1) h = "0" + h;
+                ret = ret + h;
+        }
+        return ret;
+    }
+    function generate_click() {
+        var angle = document.getElementById("param_angle").value;
+        var iterations = document.getElementById("param_iterations").value;
+        var constants = asc2hex(document.getElementById("param_constants").value);
+        var axiom = asc2hex(document.getElementById("param_axiom").value);
+        var rules = asc2hex(document.getElementById("param_rules").value);
+        var dest = "generator.py?angle="+angle+"&iterations="+iterations+"&constants="+constants+"&axiom="+axiom+"&rules="+rules;
+        image_loading.style.display = "inline";
+        button_generate.disabled = true;
+        document.getElementById("image_result").src = dest;
+    }
+    function generation_finished() {
+        image_loading.style.display = "none";
+        button_generate.disabled = false;
+    }
+</script>
 
 </body>
 </html>

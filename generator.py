@@ -4,13 +4,14 @@
 import cgitb
 
 cgitb.enable(format="text")
+print "Content-Disposition: inline; filename=fractal.svg"
 print "Content-Type: image/svg+xml;charset=utf-8"
 print
 
-import cgi
 import urllib
 from svg import svg
 import lsys
+import cgi
 
 arguments = cgi.FieldStorage()
 
