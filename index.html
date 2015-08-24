@@ -92,9 +92,15 @@ a {
     width: 100px;
     float: left;
 }
-#definition #constants {
+#definition #rotate {
     width: 100px;
     float: left;
+    margin-right: 10px;
+}
+#definition #thickness {
+    width: 100px;
+    float: left;
+    margin-right: 10px;
 }
 #definition h3 {
     margin: 3px 0 0 0;
@@ -188,6 +194,9 @@ a {
         <div id="rotate">
             <h3>Rotate</h3> <input type="text" id="param_rotate" style="width:100px;" value="{param_rotate}">
         </div>
+        <div id="thickness">
+            <h3>Thickness</h3> <input type="text" id="param_thickness" style="width:100px;" value="{param_thickness}">
+        </div>
     </div>
     <div id="right">
         <h3>Syntax</h3>
@@ -233,7 +242,8 @@ a {
         var axiom = asc2hex(document.getElementById("param_axiom").value);
         var rules = asc2hex(document.getElementById("param_rules").value);
         var rotate = document.getElementById("param_rotate").value;
-        var dest = "generator.py?angle="+angle+"&iterations="+iterations+"&constants="+constants+"&axiom="+axiom+"&rules="+rules+"&rotate="+rotate;
+        var thickness = document.getElementById("param_thickness").value;
+        var dest = "generator.py?angle="+angle+"&iterations="+iterations+"&constants="+constants+"&axiom="+axiom+"&rules="+rules+"&rotate="+rotate+"&thickness="+thickness;
         image_loading.style.display = "inline";
         button_generate.disabled = true;
         document.getElementById("image_result").src = dest;

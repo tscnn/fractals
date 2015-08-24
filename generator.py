@@ -21,6 +21,7 @@ constants = set(list(str(arguments['constants'].value).decode("hex")))
 axiom = str(arguments['axiom'].value).decode("hex")
 rules = str(arguments['rules'].value).decode("hex").split("\n")
 rotate = float(arguments['rotate'].value)
+thickness = str(arguments['thickness'].value)
 border = 100
 width = 820
 bgcolor = "#404040"
@@ -32,6 +33,6 @@ points = points / points[:,0].max() * (width - border) + border/2
 height = points[:,1].max() + border/2
 
 image = svg(width, height, bg=bgcolor)
-image.path(points, kinds)
+image.path(points, kinds, strokewidth=thickness)
 print image
 
