@@ -92,6 +92,10 @@ a {
     width: 100px;
     float: left;
 }
+#definition #constants {
+    width: 100px;
+    float: left;
+}
 #definition h3 {
     margin: 3px 0 0 0;
     padding: 0;
@@ -181,6 +185,9 @@ a {
             <h3>Production Rules</h3>
             <textarea id="param_rules" style="height:130px;">{param_rules}</textarea>
         </div>
+        <div id="rotate">
+            <h3>Rotate</h3> <input type="text" id="param_rotate" style="width:100px;" value="{param_rotate}">
+        </div>
     </div>
     <div id="right">
         <h3>Syntax</h3>
@@ -225,7 +232,8 @@ a {
         var constants = asc2hex(document.getElementById("param_constants").value);
         var axiom = asc2hex(document.getElementById("param_axiom").value);
         var rules = asc2hex(document.getElementById("param_rules").value);
-        var dest = "generator.py?angle="+angle+"&iterations="+iterations+"&constants="+constants+"&axiom="+axiom+"&rules="+rules;
+        var rotate = document.getElementById("param_rotate").value;
+        var dest = "generator.py?angle="+angle+"&iterations="+iterations+"&constants="+constants+"&axiom="+axiom+"&rules="+rules+"&rotate="+rotate;
         image_loading.style.display = "inline";
         button_generate.disabled = true;
         document.getElementById("image_result").src = dest;
